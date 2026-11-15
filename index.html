@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chá de Casa Nova</title>
+<meta name="description" content="Lista de presentes do chá de casa nova. Escolha um item e ele fica no seu nome.">
+<meta property="og:title" content="Chá de Casa Nova">
+<meta property="og:description" content="Escolha o que você vai levar. Cada presente assenta um azulejo da casa nova.">
+<meta name="theme-color" content="#F2F3EF">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='6' fill='%232F55A4'/%3E%3Cpath d='M20 9l11 10v12H9V19z' fill='%23F2F3EF'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Instrument+Sans:wght@400;500;600&family=Caveat:wght@600&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="hero-copy">
+      <p class="date" id="evDate"></p>
+      <h1 id="evTitle"></h1>
+      <p class="lead" id="evIntro"></p>
+      <button type="button" class="btn ghost" id="shareBtn">Compartilhar a lista</button>
+    </div>
+    <figure class="floor">
+      <div class="tiles" id="tiles" aria-hidden="true"></div>
+      <figcaption id="floorCap">Carregando a lista…</figcaption>
+    </figure>
+  </header>
+
+  <div class="toolbar" id="toolbar">
+    <div class="bar-row">
+      <div class="seg" role="group" aria-label="Mostrar">
+        <button type="button" data-f="all" aria-pressed="true">Todos</button>
+        <button type="button" data-f="open" aria-pressed="false">Faltam</button>
+        <button type="button" data-f="taken" aria-pressed="false">Reservados</button>
+      </div>
+      <span class="live" id="live" data-s="wait"><i></i><span id="liveText">Conectando</span></span>
+      <span class="grow"></span>
+      <div class="host-tools" id="hostTools" hidden>
+        <button type="button" class="btn small" id="editToggle" aria-pressed="false">Editar lista</button>
+        <button type="button" class="btn small" id="summaryBtn">Copiar resumo</button>
+        <button type="button" class="btn small" id="logoutBtn">Sair</button>
+      </div>
+    </div>
+    <nav class="rooms-nav" id="roomsNav" aria-label="Ir para um cômodo"></nav>
+  </div>
+
+  <div id="banner"></div>
+  <main id="list"></main>
+
+  <footer class="foot">
+    <button type="button" class="linkish" id="loginBtn">Área dos anfitriões</button>
+  </footer>
+</div>
+
+<div class="overlay" id="overlay" hidden></div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

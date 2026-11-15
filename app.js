@@ -44,7 +44,7 @@ function h(tag, props, ...kids) {
   return e;
 }
 const validHex = x => typeof x === 'string' && /^#[0-9a-f]{6}$/i.test(x);
-const safeUrl = u => typeof u === 'string' && /^(https?:|blob:)/i.test(u) ? u : null;
+const safeUrl = u => typeof u === 'string' && /^(https?:|blob:|fotos\/)/i.test(u) ? u : null;
 const store = {
   get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } },
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }

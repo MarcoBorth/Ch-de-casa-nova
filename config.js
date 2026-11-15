@@ -2,8 +2,8 @@
 // (Project Settings > API Keys / Data API). A chave pública pode ficar aqui:
 // quem protege os dados são as regras do banco (schema.sql).
 // Enquanto estiver como está, a página roda em modo demonstração.
-export const SUPABASE_URL = 'COLE_AQUI_A_URL_DO_PROJETO';
-export const SUPABASE_KEY = 'COLE_AQUI_A_CHAVE_PUBLICA';
+export const SUPABASE_URL = 'https://ncypzfkwbukinlzhiwkg.supabase.co';
+export const SUPABASE_KEY = 'sb_publishable_XFhDvT_L03aPncqFxZoSjg_3pnORLFI';
 
 export const EVENT = {
   title: 'Chá de Casa Nova',

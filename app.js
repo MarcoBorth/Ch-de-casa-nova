@@ -57,6 +57,7 @@ function newToken() { const b = new Uint8Array(18); crypto.getRandomValues(b); r
 function uuid() { return crypto.randomUUID ? crypto.randomUUID() : newToken(); }
 let toastT;
 function toast(msg) { const t = $('#toast'); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => (t.hidden = true), 4200); }
+const ANON = 'Reservado';
 const plural = (n, a, b) => n === 1 ? a : b;
 
 /* ---------- Dados ---------- */
@@ -192,13 +193,11 @@ function pickGroup(name, options, label) {
 function openClaim(it) {
   const colors = (it.colors || []).filter(c => c && c.n);
   const sizes = (it.sizes || []).filter(Boolean);
-  const nameI = h('input', { type: 'text', id: 'cName', maxlength: '60', autocomplete: 'name', value: store.get('cha-nome', ''), placeholder: 'Como você quer aparecer na lista' });
   const err = h('p', { class: 'err', role: 'alert' });
   const ok = h('button', { type: 'submit', class: 'btn primary', text: 'Confirmar' });
   const form = h('form', { class: 'modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'cTitle', novalidate: true },
     h('h2', { id: 'cTitle', text: 'Você leva: ' + it.name }),
     it.note ? h('p', { class: 'note', text: it.note }) : null,
-    h('div', { class: 'field' }, h('label', { for: 'cName', text: 'Seu nome' }), nameI),
     colors.length ? pickGroup('cor', colors.map(c => ({ value: c.n, label: c.n, hex: validHex(c.h) ? c.h : '#ccc' })), 'Qual cor?') : null,
     sizes.length ? pickGroup('tam', sizes.map(s => ({ value: s, label: s })), 'Qual tamanho?') : null,
     err,
@@ -206,20 +205,18 @@ function openClaim(it) {
 
   form.addEventListener('submit', async ev => {
     ev.preventDefault();
-    const name = nameI.value.trim();
+    const name = ANON; // o banco exige um nome; guardamos só “Reservado”, para ser surpresa
     const color = form.querySelector('input[name=cor]:checked')?.value || null;
     const size = form.querySelector('input[name=tam]:checked')?.value || null;
-    if (!name) { err.textContent = 'Escreva seu nome para os anfitriões saberem quem leva.'; nameI.focus(); return; }
     if (colors.length && !color) { err.textContent = 'Escolha uma cor.'; return; }
     if (sizes.length && !size) { err.textContent = 'Escolha um tamanho.'; return; }
     err.textContent = ''; ok.disabled = true; ok.textContent = 'Reservando…';
-    store.set('cha-nome', name);
     const token = newToken();
     try {
       const r = await api.claim(it.id, name, color, size, token);
       if (r === 'ok') {
         tokens.set(it.id, token);
-        closeModal(); toast(`Reservado. ${it.name} está no seu nome.`); refresh('claims');
+        closeModal(); toast(`Combinado! ${it.name} fica com você.`); refresh('claims');
       } else if (r === 'taken') {
         closeModal(); toast('Outra pessoa acabou de reservar este item.'); refresh('claims');
       } else {
@@ -426,7 +423,7 @@ function row(it) {
   let tape = null;
   if (c) {
     const extra = [c.color?.n, c.size].filter(Boolean).join(', ');
-    tape = h('span', { class: 'tape' }, (mine(it) ? 'Você leva' : c.name + ' leva'), extra ? h('small', { text: extra }) : null);
+    tape = h('span', { class: 'tape' }, (mine(it) ? 'Você leva' : 'Reservado'), extra ? h('small', { text: extra }) : null);
     if (mine(it) || (S.admin && S.edit)) act.append(releaseBtn(it, S.admin));
   } else {
     act.append(h('button', { type: 'button', class: 'btn primary', disabled: !S.loaded, 'aria-label': 'Eu levo: ' + it.name, onclick: () => openClaim(it), text: 'Eu levo' }));

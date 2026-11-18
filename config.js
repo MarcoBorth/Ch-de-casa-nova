@@ -6,7 +6,7 @@ export const SUPABASE_URL = 'https://ncypzfkwbukinlzhiwkg.supabase.co';
 export const SUPABASE_KEY = 'sb_publishable_XFhDvT_L03aPncqFxZoSjg_3pnORLFI';
 
 export const EVENT = {
-  title: 'Chá de Casa Nova',
+  title: 'Chá de Panela Camille & Marco',
   date: 'Domingo, 13 de dezembro',
-  intro: 'Escolha o que você quer dar e toque em “Eu levo”. O item fica no seu nome na hora, para todo mundo que abrir a lista, e ninguém compra repetido.'
+  intro: 'Que bom ter você com a gente! Escolha um presente e toque em “Eu levo”. Ele sai da lista para os outros, e a gente só descobre o que veio no dia.'
 };
